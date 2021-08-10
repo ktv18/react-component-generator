@@ -1,11 +1,11 @@
-import {writeFileSync} from 'fs';
-import {join} from 'path';
+import { writeFileSync } from "fs";
+import { join } from "path";
 // Templates
-import component from './templates/component';
-import componentTest from './templates/component.test';
-import styles from './templates/component.module';
-import entry from './templates';
-import {Options} from './types';
+import component from "./templates/component";
+import componentTest from "./templates/component.test";
+import styles from "./templates/component.module";
+import entry from "./templates";
+import { Options } from "./types";
 
 type CreateComponentArgs = Options & {
   componentDir: string;
@@ -25,7 +25,7 @@ const generateTest = (args: CreateComponentArgs) =>
   );
 
 const generateStyles = (args: CreateComponentArgs) => {
-  const fileExt = args.scss ? 'scss' : 'css';
+  const fileExt = args.scss ? "scss" : "css";
   const fileName = args.cssModules
     ? `${args.componentName}.module.${fileExt}`
     : `${args.componentName}.${fileExt}`;
@@ -35,8 +35,13 @@ const generateStyles = (args: CreateComponentArgs) => {
 const generateEntry = (args: CreateComponentArgs) =>
   writeFileSync(join(args.componentDir, `index.ts`), entry(args.componentName));
 
-const componentTasks = [generateComponent, generateTest, generateStyles, generateEntry];
+const componentTasks = [
+  generateComponent,
+  generateTest,
+  generateStyles,
+  generateEntry,
+];
 
 export default (args: CreateComponentArgs): void => {
-  componentTasks.forEach(task => task(args));
+  componentTasks.forEach((task) => task(args));
 };

@@ -1,5 +1,5 @@
-import {stripIndent} from 'common-tags';
-import {lowerCaseString} from '../utils';
+import { stripIndent } from "common-tags";
+import { lowerCaseString } from "../utils";
 
 const webStyles = (componentName: string): string =>
   `${stripIndent`

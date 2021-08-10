@@ -1,9 +1,12 @@
-import {stripIndent} from 'common-tags';
-import {Options} from 'src/types';
-import {lowerCaseString} from '../utils';
+import { stripIndent } from "common-tags";
+import { Options } from "src/types";
+import { lowerCaseString } from "../utils";
 
-export const webComponent = (componentName: string, options: Options): string => {
-  const stylesExt = options.scss ? 'scss' : 'css';
+export const webComponent = (
+  componentName: string,
+  options: Options
+): string => {
+  const stylesExt = options.scss ? "scss" : "css";
 
   return `${stripIndent`
   import React from 'react';

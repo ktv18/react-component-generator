@@ -1,4 +1,4 @@
-import {stripIndent} from 'common-tags';
+import { stripIndent } from "common-tags";
 
 export default (componentName: string): string =>
   stripIndent`
