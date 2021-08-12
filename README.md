@@ -6,10 +6,10 @@ $ yarn add https://github.com/ktv18/react-component-generator
 
 Options:
 
-- `-d, --destination <destination>`: Override the destination for component.
-- `-cm, --css-modules`: Use css module format.
-- `-t, --tests`: should generate test file.
-- `--scss`: should genera style file with scss extension.
+- `-d, --destination <destination>`: Define the destination for component.
+- `-cm, --css-modules`: Should use css module format.
+- `-t, --tests`: Should generate test file.
+- `--scss`: Should generate style file with scss extension.
 
 Examples:
 
