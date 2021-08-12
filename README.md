@@ -9,23 +9,24 @@ Below you can find a rough outline of a component structure:
 
 ```sh
 [ComponentName]/
-├── [ComponentName].js           # The raw component
-├── [ComponentName].module.css   # Scoped styles for the component (can be less)
-├── [ComponentName].utils.js     # Utils when needed
-├── index.js                     # For the export
-├── hooks/                       # Hooks when needed
-└─┬ components/                  # Additional scoped components when needed
+├── [ComponentName].tsx           # The raw component
+├── [ComponentName].test.tsx      # The component tests
+├── [ComponentName].module.css    # Scoped styles for the component (can be scss)
+├── [ComponentName].utils.ts      # Utils when needed
+├── index.ts                      # For the export
+├── hooks/                        # Hooks when needed
+└─┬ components/                   # Additional scoped components when needed
   ├── [ComponentName]/
   ├── [ComponentName2]/
   ├── ...
-  └── index.js                  # For the export
+  └── index.ts                    # For the export
 ```
 
 Component hooks
 
 ```sh
 hooks/
-├── use[HookName].js
-├── use[HookName2].js
-└── index.js                  # For the export
+├── use[HookName].ts
+├── use[HookName2].ts
+└── index.ts                      # For the export
 ```
