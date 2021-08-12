@@ -35,13 +35,11 @@ const generateStyles = (args: CreateComponentArgs) => {
 const generateEntry = (args: CreateComponentArgs) =>
   writeFileSync(join(args.componentDir, `index.ts`), entry(args.componentName));
 
-const componentTasks = [
-  generateComponent,
-  generateTest,
-  generateStyles,
-  generateEntry,
-];
+const componentTasks = [generateComponent, generateStyles, generateEntry];
 
 export default (args: CreateComponentArgs): void => {
+  if (args.tests) {
+    componentTasks.push(generateTest);
+  }
   componentTasks.forEach((task) => task(args));
 };

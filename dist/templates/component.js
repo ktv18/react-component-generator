@@ -4,7 +4,7 @@ exports.webComponent = void 0;
 const common_tags_1 = require("common-tags");
 const utils_1 = require("../utils");
 const webComponent = (componentName, options) => {
-    const stylesExt = options.scss ? 'scss' : 'css';
+    const stylesExt = options.scss ? "scss" : "css";
     return `${common_tags_1.stripIndent `
   import React from 'react';
   import classnames from 'classnames';
