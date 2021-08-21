@@ -2,6 +2,7 @@ import { writeFileSync } from "fs";
 import { join } from "path";
 // Templates
 import component from "./templates/component";
+import styledComponent from "./templates/component.styled";
 import componentTest from "./templates/component.test";
 import styles from "./templates/component.module";
 import entry from "./templates";
@@ -32,6 +33,12 @@ const generateStyles = (args: CreateComponentArgs) => {
   writeFileSync(join(args.componentDir, fileName), styles(args.componentName));
 };
 
+const generateStyledComponent = (args: CreateComponentArgs) =>
+  writeFileSync(
+    join(args.componentDir, `${args.componentName}.styled.tsx`),
+    styledComponent(args.componentName)
+  );
+
 const generateEntry = (args: CreateComponentArgs) =>
   writeFileSync(join(args.componentDir, `index.ts`), entry(args.componentName));
 
@@ -40,6 +47,9 @@ const componentTasks = [generateComponent, generateStyles, generateEntry];
 export default (args: CreateComponentArgs): void => {
   if (args.tests) {
     componentTasks.push(generateTest);
+  }
+  if (args.styledComponent) {
+    componentTasks.push(generateStyledComponent);
   }
   componentTasks.forEach((task) => task(args));
 };

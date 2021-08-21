@@ -13,28 +13,22 @@ program
     .option("-d, --destination <destination>")
     .option("-cm, --css-modules", "should use css modules", false)
     .option("-t, --tests", "should generate test", false)
-    .option("-scss, --scss", "should generate test", false);
+    .option("-scss, --scss", "should use scss", false)
+    .option("-sc, --styled-component", "should generate styled component", false);
 program.parse(process.argv);
 const options = program.opts();
-const promptQuestions = options.name
-    ? []
-    : [
-        {
-            type: "input",
-            name: "componentName",
-            message: () => `What should the new component be named?`,
-        },
-    ];
+const promptQuestions = utils_1.subtractOptionsFromQuestions(options);
 inquirer_1.prompt(promptQuestions)
-    .then(({ componentName }) => {
-    const compName = componentName ? componentName : options.name;
-    const capitalizedComponentName = utils_1.capitalizeString(compName);
-    const componentDir = path_1.resolve("./", `${options.destination}/${capitalizedComponentName}`);
+    .then((answers) => {
+    const mergedAnswersWithOptions = utils_1.getMergedAnswersWithOptions(answers, options);
+    const capitalizedComponentName = utils_1.capitalizeString(mergedAnswersWithOptions.name);
+    const componentDir = path_1.resolve("./", `${mergedAnswersWithOptions.destination}/${capitalizedComponentName}`);
     if (!fs_1.existsSync(componentDir)) {
         fs_1.mkdirSync(componentDir, {
             recursive: true,
         });
-        generateComponent_1.default(Object.assign(Object.assign({}, options), { componentDir, componentName: capitalizedComponentName }));
+        generateComponent_1.default(Object.assign(Object.assign({}, mergedAnswersWithOptions), { componentDir, componentName: capitalizedComponentName }));
+        console.log(`${capitalizedComponentName} has been successfully generated`);
     }
     else {
         console.log(`\nError:Component with the name '${capitalizedComponentName}' already exists.\n`);

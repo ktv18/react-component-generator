@@ -1,38 +1,31 @@
 import { stripIndent } from "common-tags";
 import { Options } from "src/types";
-import { lowerCaseString } from "../utils";
+import {
+  getReactImportStr,
+  getStyledComponentStr,
+  getStylesImportStr,
+  lowerCaseString,
+} from "../utils";
 
 export const webComponent = (
   componentName: string,
   options: Options
 ): string => {
-  const stylesExt = options.scss ? "scss" : "css";
-
   return `${stripIndent`
-  import React from 'react';
-  import classnames from 'classnames';
-  ${
-    options.cssModules
-      ? `import styles from './${componentName}.module.${stylesExt}';`
-      : `import './${componentName}.${stylesExt}';`
-  }
+  ${getReactImportStr()}
+  ${options.styledComponent ? getStyledComponentStr(componentName) : ""}
+  ${getStylesImportStr(componentName, options)}
 
-  type Props = {
-    className?: string;
-  };
-
-  const getClassNames = (props: Props) => {
-    const {className} = props;
-
-    return classnames(styles.${lowerCaseString(componentName)}, className);
-  };
+  type Props = {};
 
   const ${componentName} = (props: Props): JSX.Element => {
     const {
       /* destructuring goes here */
     } = props;
 
-    return <div className={getClassNames(props)}>${componentName}</div>;
+    return <div className={styles.${lowerCaseString(
+      componentName
+    )}}>${componentName}</div>;
   };
 
   export default ${componentName};

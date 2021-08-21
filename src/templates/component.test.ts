@@ -1,8 +1,9 @@
 import { stripIndent } from "common-tags";
+import { getReactImportStr } from "../utils";
 
 export const test = (componentName: string): string =>
   `${stripIndent`
-  import React from 'react';
+  ${getReactImportStr()}
   import {render, screen} from '@testing-library/react';
   import ${componentName} from './${componentName}';
 

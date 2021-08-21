@@ -4,6 +4,7 @@ const fs_1 = require("fs");
 const path_1 = require("path");
 // Templates
 const component_1 = require("./templates/component");
+const component_styled_1 = require("./templates/component.styled");
 const component_test_1 = require("./templates/component.test");
 const component_module_1 = require("./templates/component.module");
 const templates_1 = require("./templates");
@@ -16,11 +17,15 @@ const generateStyles = (args) => {
         : `${args.componentName}.${fileExt}`;
     fs_1.writeFileSync(path_1.join(args.componentDir, fileName), component_module_1.default(args.componentName));
 };
+const generateStyledComponent = (args) => fs_1.writeFileSync(path_1.join(args.componentDir, `${args.componentName}.styled.tsx`), component_styled_1.default(args.componentName));
 const generateEntry = (args) => fs_1.writeFileSync(path_1.join(args.componentDir, `index.ts`), templates_1.default(args.componentName));
 const componentTasks = [generateComponent, generateStyles, generateEntry];
 exports.default = (args) => {
     if (args.tests) {
         componentTasks.push(generateTest);
+    }
+    if (args.styledComponent) {
+        componentTasks.push(generateStyledComponent);
     }
     componentTasks.forEach((task) => task(args));
 };
